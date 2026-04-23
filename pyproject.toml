@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "webridge"
+version = "0.1.0"
+description = "Web-content bridge — URL/query → clean markdown, cached, typed"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [{name = "Neil Anthony"}]
+dependencies = [
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "httpx>=0.27",
+    "loguru>=0.7",
+    "trafilatura>=1.9",
+    "markdownify>=0.11",
+]
+
+[project.optional-dependencies]
+dynamic = ["crawl4ai>=0.4", "playwright>=1.40"]
+discover = ["ddgs>=6.0"]
+pdf = ["pymupdf>=1.23", "pymupdf4llm>=0.0.10"]
+tavily = ["tavily-python>=0.3"]
+cli = ["typer>=0.12"]
+all = ["webridge[dynamic,discover,pdf,tavily,cli]"]
+
+[project.scripts]
+webridge = "webridge.cli:app"
+
+[dependency-groups]
+dev = ["pytest>=7.0", "pytest-mock", "pytest-httpx", "ruff", "mypy"]
+notebook = ["ipykernel", "ipywidgets"]
+all-dev = [{include-group = "dev"}, {include-group = "notebook"}]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+webridge = ["py.typed"]
+
+[tool.pytest.ini_options]
+markers = [
+    "network: tests that hit the live internet (skipped by default)",
+]
+addopts = "-m 'not network'"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+warn_return_any = true
+warn_unused_configs = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["crawl4ai.*", "ddgs.*", "trafilatura.*", "markdownify.*", "pymupdf4llm.*"]
+ignore_missing_imports = true

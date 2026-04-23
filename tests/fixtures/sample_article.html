@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sample Article — WebRidge Fixture</title>
+  <meta name="description" content="A tiny article used for offline trafilatura tests.">
+</head>
+<body>
+  <header><nav><a href="/">Home</a></nav></header>
+  <main>
+    <article>
+      <h1>Sample Article — WebRidge Fixture</h1>
+      <p>This is a minimal HTML document used to exercise the static
+      fetch path. It contains enough real prose that trafilatura can
+      confidently identify a main-content block and produce markdown
+      output comfortably above the 200-character fallback threshold.</p>
+      <p>The <a href="https://example.com/spec">spec</a> says that the
+      extracted markdown should preserve links and basic structure, and
+      should not include the surrounding navigation, footer, or cookie
+      banner chrome that wraps the article on a real site.</p>
+      <h2>A second section</h2>
+      <p>A second paragraph keeps trafilatura's confidence high. Lists
+      are also useful:</p>
+      <ul>
+        <li>Item one</li>
+        <li>Item two</li>
+        <li>Item three</li>
+      </ul>
+    </article>
+  </main>
+  <footer>Copyright 2026 — this footer should not end up in the markdown output.</footer>
+</body>
+</html>
